@@ -1,8 +1,8 @@
 run:
-	PYTHONPATH=src python -m src.ammoseekr.main
+	PYTHONPATH=src uv run python -m src.ammoseekr.main
 
 test:
-	PYTHONPATH=src pytest
+	PYTHONPATH=src uv run pytest
 
 format:
 	uv run ruff format src tests
