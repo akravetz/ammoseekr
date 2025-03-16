@@ -22,27 +22,34 @@ class AmmoListing(BaseModel):
     @model_validator(mode="before")
     @classmethod
     def process_data(cls, data: Any) -> Any:
+        """
+        This function takes the messy, hierarchical json data returns by the ammoseek website
+        and munges it into the appropriate format required by our pydantic model
+        """
         # Extract and clean the price
+        # returned from ammoseek as "$XX.YY"
         price_str = data.get("price", "")
         price = float(re.sub(r"[^\d.]", "", price_str))
 
+        # either integer or "?"
         grains = data.get("grains", "?")
         if grains == "?":
             grains = None
 
-        # Extract nested values from DT_RowData
+        # Extract nested ratings values from DT_RowData
         dt_row_data = data.get("DT_RowData", {})
         rating = float(dt_row_data.get("rating", 0))
         count_reviews = dt_row_data.get("numratings", 0)
 
         # Calculate rounds and price_per_round
-        rounds = data.get("count", 1000)
+        rounds = data.get("count", 1)
         price_per_round = price / rounds if rounds > 0 else 0.0
 
         # Add the current timestamp for scraped_at
         scraped_at = datetime.now()
 
-        relative_url = dt_row_data.get("gourl", "")
+        # relative URL to the deal
+        relative_url_id = data.get("DT_RowId", "")
 
         # Return the values to be assigned to the model
         return {
@@ -56,6 +63,6 @@ class AmmoListing(BaseModel):
             "price_per_round": price_per_round,
             "rating": rating,
             "count_reviews": count_reviews,
-            "url": f"https://www.ammoseek.com{relative_url}",
+            "url": f"https://www.ammoseek.com/go.to/{relative_url_id}/a",
             "scraped_at": scraped_at,
         }
