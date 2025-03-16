@@ -5,7 +5,7 @@ from unittest import mock
 import pytest
 import requests
 
-from ammoseek.scraper import Scraper
+from ammoseekr.scraper import Scraper
 
 
 def read_mock(mock_filename):
