@@ -5,7 +5,7 @@ from typing import Any, Optional
 from pydantic import BaseModel, Field, HttpUrl, model_validator
 
 
-class AmmoSale(BaseModel):
+class AmmoListing(BaseModel):
     retailer_name: str
     description: str
     brand_name: str

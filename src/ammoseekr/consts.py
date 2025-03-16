@@ -1,10 +1,17 @@
 from enum import StrEnum
+from dataclasses import dataclass
 
 
-class Caliber(StrEnum):
-    PISTOL_9MM = "9mm-luger"
-    RIFLE_556_NATO = "5.56x45mm-nato"
-    RIFLE_300_BO = "300aac-blackout"
+@dataclass
+class Caliber:
+    readable_name: str
+    id: int
+    gun_type: str
+
+
+PISTOL_9MM = Caliber("9mm-luger", "82", "handgun")
+RIFLE_556 = Caliber("5.56x45mm-nato", "352", "rifle")
+RIFLE_300_BO = Caliber("300aac-blackout", "332", "rifle")
 
 
 class Casing(StrEnum):
