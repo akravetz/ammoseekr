@@ -6,3 +6,9 @@ test:
 
 format:
 	uv run ruff format src tests
+
+lint:
+	uv run ruff check src tests
+
+fix:
+	uv run ruff check --fix src tests

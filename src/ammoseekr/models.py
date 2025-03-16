@@ -2,7 +2,7 @@ import re
 from datetime import datetime
 from typing import Any, Optional
 
-from pydantic import BaseModel, Field, model_validator, HttpUrl
+from pydantic import BaseModel, Field, HttpUrl, model_validator
 
 
 class AmmoSale(BaseModel):
