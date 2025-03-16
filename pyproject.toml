@@ -3,6 +3,7 @@ name = "ammoseek"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
+    "pydantic>=2.10.6",
     "requests>=2.32.3",
 ]
 
@@ -15,6 +16,3 @@ dev = [
 [tool.ruff.lint]
 extend-select = ["B"]
 select = ["I"]
-
-[tool.uv.scripts]
-start = "python -m src.ammoseek.main"

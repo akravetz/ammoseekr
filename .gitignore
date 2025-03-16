@@ -1,0 +1,21 @@
+# Byte-compiled files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment
+venv/
+env/
+.venv/
+ENV/
+
+# Distribution / Packaging
+*.egg
+*.egg-info/
+dist/
+build/
+*.tar.gz
+*.whl
+
+# IDEs and editors
+.vscode/
