@@ -2,14 +2,14 @@ import requests
 
 from ammoseekr import consts, models
 
-BASE_URL = "https://ammoseek.com/"
-
 
 class Scraper:
+    BASE_URL = "https://ammoseek.com/"
+
     def __init__(
         self,
+        caliber: consts.Caliber,
         session: requests.Session = None,
-        caliber: consts.Caliber = consts.PISTOL_9MM,
     ):
         self.caliber = caliber
         self.casing = consts.Casing.BRASS
@@ -17,13 +17,12 @@ class Scraper:
         self.session = session or requests.Session()
 
     def list_deals(self) -> list[models.AmmoListing]:
-        url = f"{BASE_URL}"
         headers = {
             "accept": "application/json, text/javascript, */*; q=0.01",
             "accept-language": "en-US,en;q=0.9",
             "cache-control": "no-cache",
             "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "origin": BASE_URL,
+            "origin": Scraper.BASE_URL,
             "pragma": "no-cache",
             "priority": "u=1, i",
             "referer": f"https://ammoseek.com/ammo/{self.caliber.readable_name}?sh=low&ca={self.casing}&co={self.condition}",
@@ -34,9 +33,11 @@ class Scraper:
             "sec-fetch-mode": "cors",
             "sec-fetch-site": "same-origin",
             "x-requested-with": "XMLHttpRequest",
+            # forgive me for lying
             "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
         }
 
+        # if its ugly but it works... its still ugly.
         params = {
             "draw": "1",
             "columns[0][data]": "retailer",
@@ -144,8 +145,8 @@ class Scraper:
             "gun": self.caliber.gun_type,
             "sh": "low",
         }
-        result = self.session.post(url, data=params, headers=headers)
+        result = self.session.post(Scraper.BASE_URL, data=params, headers=headers)
         result.raise_for_status()
 
         data = result.json()["data"]
-        return [models.AmmoSale.model_validate(obj) for obj in data]
+        return [models.AmmoListing.model_validate(obj) for obj in data]

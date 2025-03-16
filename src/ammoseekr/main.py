@@ -1,8 +1,8 @@
-from ammoseekr.scraper import Scraper
+import ammoseekr
 
 
 def main():
-    s = Scraper()
+    s = ammoseekr.Scraper(caliber=ammoseekr.PISTOL_9MM)
     print(s.list_deals())
 
 

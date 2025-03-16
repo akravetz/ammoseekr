@@ -5,7 +5,7 @@ from unittest import mock
 import pytest
 import requests
 
-from ammoseekr.scraper import Scraper
+import ammoseekr
 
 
 def read_mock(mock_filename):
@@ -15,11 +15,11 @@ def read_mock(mock_filename):
 
 
 @pytest.fixture
-def mock_scraper() -> Scraper:
+def mock_scraper() -> ammoseekr.Scraper:
     sess = mock.Mock(requests.Session)
     sess.post.return_value = mock.Mock()
     sess.get.return_value = mock.Mock()
-    return Scraper(sess)
+    return ammoseekr.Scraper(ammoseekr.PISTOL_9MM, sess)
 
 
 def test_list_deals(mock_scraper):
