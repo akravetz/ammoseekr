@@ -1,5 +1,3 @@
-import http.client as http_client
-import logging
 
 import requests
 

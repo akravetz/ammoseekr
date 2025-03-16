@@ -26,10 +26,9 @@ class AmmoSale(BaseModel):
         price_str = data.get("price", "")
         price = float(re.sub(r"[^\d.]", "", price_str))
 
-        if data.get("grains", "?") == "?":
+        grains = data.get("grains", "?")
+        if grains == "?":
             grains = None
-        else:
-            grains = data.get("grains")
 
         # Extract nested values from DT_RowData
         dt_row_data = data.get("DT_RowData", {})
