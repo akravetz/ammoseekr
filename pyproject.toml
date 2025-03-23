@@ -17,6 +17,6 @@ dev = [
 ]
 
 [tool.ruff.lint]
-select = ["F", "B", "E", "SIM"]
+select = ["F", "B", "E", "SIM", "I"]
 ignore = ["E501"]
 fixable = ["ALL"]

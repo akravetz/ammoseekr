@@ -19,3 +19,7 @@ build/
 
 # IDEs and editors
 .vscode/
+
+# sensitive files
+.env
+.envrc

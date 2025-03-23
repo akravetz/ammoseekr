@@ -1,6 +1,9 @@
 run:
 	PYTHONPATH=src uv run python -m src.ammoseekr.main
 
+dryrun:
+	PYTHONPATH=src uv run python -m src.ammoseekr.main --dry-run --verbose
+
 test:
 	PYTHONPATH=src uv run pytest
 
@@ -12,3 +15,6 @@ lint:
 
 fix:
 	uv run ruff check --fix src tests infra
+
+set-env:
+	export `xargs < .env`
